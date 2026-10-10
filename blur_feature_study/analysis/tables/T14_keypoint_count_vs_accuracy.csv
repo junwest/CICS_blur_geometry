@@ -1,0 +1,8 @@
+detector,rho_kp_vs_gt3,rho_kp_vs_precision,n,contrast,cells_more_kp,more_kp_but_fewer_correct,more_kp_but_lower_precision,more_kp_and_success_lost
+ORB,0.11038029006751458,0.1608715872969708,768.0,,,,,
+ORB,,,,B-A,91.0,21.0,46.0,5.0
+ORB,,,,C-A,107.0,31.0,37.0,3.0
+ORB,,,,D-A,107.0,6.0,10.0,0.0
+SIFT,0.44635268145372053,0.4738064314926559,576.0,,,,,
+SIFT,,,,C-A,177.0,42.0,69.0,10.0
+SIFT,,,,D-A,178.0,0.0,11.0,5.0

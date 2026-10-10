@@ -1,0 +1,10 @@
+# 원본 데이터셋 (HPatches, 3.0GB)
+blur_feature_study/data/
+
+# 가상환경 / 파이썬 캐시
+.venv/
+__pycache__/
+*.pyc
+
+# 매칭 원시 출력 (pair별 npz 3,192개, 161MB) — 집계 결과는 results/main 등에 있음
+blur_feature_study/results/matching_details/

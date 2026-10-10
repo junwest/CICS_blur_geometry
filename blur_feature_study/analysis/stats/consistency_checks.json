@@ -1,0 +1,88 @@
+{
+  "config_snapshot_equals_live_config": true,
+  "src_files_changed_since_main": [],
+  "src_files_added_since_main": [
+    "repro_check.py"
+  ],
+  "B_rows_use_selected_params": true,
+  "D_rows_balance_0.005": true,
+  "SIFT_tuned_equals_default": true,
+  "SIFT_B_rows_identical_to_A": true,
+  "n_rows": 1632,
+  "n_pairs": 24,
+  "n_sequences": 12,
+  "pairs_per_sequence": {
+    "i_castle": 2,
+    "i_fruits": 2,
+    "i_gonnenberg": 2,
+    "i_kurhaus": 2,
+    "i_lionnight": 2,
+    "i_steps": 2,
+    "v_artisans": 2,
+    "v_astronautis": 2,
+    "v_busstop": 2,
+    "v_calder": 2,
+    "v_cartooncity": 2,
+    "v_underground": 2
+  },
+  "rows_per_group_detector": {
+    "CLEAN/ORB": 48,
+    "CLEAN/SIFT": 48,
+    "A/ORB": 192,
+    "A/SIFT": 192,
+    "B/ORB": 192,
+    "B/SIFT": 192,
+    "C/ORB": 192,
+    "C/SIFT": 192,
+    "D/ORB": 192,
+    "D/SIFT": 192
+  },
+  "gt_flagged_test_pairs": [
+    "v_cartooncity__1-5"
+  ],
+  "image_metrics_identical_across_detectors": true,
+  "npz_sample_mismatches": {
+    "gt_count": 0,
+    "kp_outside_mask": 0,
+    "h_error": 0,
+    "inliers": 0,
+    "ref_kp_count": 0
+  },
+  "clean_rows_trivial": true,
+  "validation_best_by_success3": {
+    "ORB": [
+      "orb_sf1.2_nl12_ft20",
+      0.6719,
+      64
+    ],
+    "SIFT": [
+      "default",
+      0.6406,
+      64
+    ]
+  },
+  "validation_wiener_psnr_best": {
+    "gaussian_s1.5": 0.005,
+    "gaussian_s3.0": 0.005,
+    "disk_r3": 0.005,
+    "disk_r5": 0.005,
+    "motion_l9_a0": 0.005,
+    "motion_l9_a90": 0.005,
+    "motion_l17_a0": 0.005,
+    "motion_l17_a90": 0.005
+  },
+  "share_rows_target_kp_at_budget": {
+    "ORB": 0.5234375,
+    "SIFT": 0.0
+  },
+  "clean_target_keypoints_min_max": {
+    "ORB": [
+      1161,
+      1500
+    ],
+    "SIFT": [
+      506,
+      1483
+    ]
+  }
+}

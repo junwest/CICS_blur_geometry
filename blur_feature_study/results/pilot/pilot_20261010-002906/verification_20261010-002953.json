@@ -1,0 +1,245 @@
+{
+  "run": "pilot_20261010-002906",
+  "phase": "pilot",
+  "timestamp": "20261010-002953",
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "required columns present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "row count == expected",
+      "pass": true,
+      "detail": "rows=136 expected=136 meta=136"
+    },
+    {
+      "check": "no duplicate keys",
+      "pass": true,
+      "detail": "duplicates=0"
+    },
+    {
+      "check": "no missing / unexpected conditions",
+      "pass": true,
+      "detail": "missing=0 unexpected=0"
+    },
+    {
+      "check": "no pipeline errors",
+      "pass": true,
+      "detail": "errors=0"
+    },
+    {
+      "check": "balanced design (same #pairs per condition)",
+      "pass": true,
+      "detail": "rows per condition: [2]"
+    },
+    {
+      "check": "pairs come from the correct split",
+      "pass": true,
+      "detail": "{'validation'}"
+    },
+    {
+      "check": "single config_hash / code_hash",
+      "pass": true,
+      "detail": "config=['3315ea402938751e'] code=['dd0012da1f68d4c7']"
+    },
+    {
+      "check": "same valid margin in all rows",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "feature budget 1500 in all rows",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "PSF: sum=1, non-negative, odd, centred, symmetric (8 conditions)",
+      "pass": true,
+      "detail": "gaussian_s1.5: [13, 13] sum=1.000000000000; gaussian_s3.0: [25, 25] sum=1.000000000000; disk_r3: [7, 7] sum=1.000000000000; disk_r5: [11, 11] sum=1.000000000000; motion_l9_a0: [9, 9] sum=1.000000000000; motion_l9_a90: [9, 9] sum=1.000000000000; motion_l17_a0: [17, 17] sum=1.000000000000; motion_l17_a90: [17, 17] sum=1.000000000000"
+    },
+    {
+      "check": "processed image size == resized clean target size",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "ratios in [0, 1]",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "PSNR/SSIM/EdgeF1/Repeatability never NaN",
+      "pass": true,
+      "detail": "{'psnr': 0, 'ssim': 0, 'edge_f1': 0, 'keypoint_repeatability': 0}"
+    },
+    {
+      "check": "CLEAN baseline: PSNR=inf, SSIM=1, EdgeF1=1, Rep=1",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "finite PSNR for all processed rows",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "count ordering: correct@3 <= correct@5 <= good; inliers <= good",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "zero matches -> precision NaN, correct=0",
+      "pass": true,
+      "detail": "rows with 0 matches=0"
+    },
+    {
+      "check": "NaN projection error <=> success=0 with failure_reason",
+      "pass": true,
+      "detail": "failed H rows=10"
+    },
+    {
+      "check": "success@5 >= success@3",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "success@3 rows have mean error <= 3 and empty failure_reason",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "image metrics identical for rows sharing a processed image",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "H_gt in match details == manifest H_resized",
+      "pass": true,
+      "detail": "mismatches=0"
+    },
+    {
+      "check": "match detail indices/coords consistent with keypoints",
+      "pass": true,
+      "detail": "mismatches=0"
+    },
+    {
+      "check": "GT-correct counts re-computed from match details",
+      "pass": true,
+      "detail": "mismatches=0"
+    },
+    {
+      "check": "homography error/success/failure re-computed from H_est",
+      "pass": true,
+      "detail": "mismatches=0"
+    },
+    {
+      "check": "PSNR (cv2.PSNR) / SSIM re-computed from regenerated images (n=48)",
+      "pass": true,
+      "detail": "max |dPSNR|=7.11e-15 dB, max |dSSIM|=1.11e-16"
+    },
+    {
+      "check": "Edge F1 re-computed from regenerated images",
+      "pass": true,
+      "detail": "mismatches=0"
+    },
+    {
+      "check": "Wiener on real image is rotation-equivariant (no shift)",
+      "pass": true,
+      "detail": "v_birdwoman__1-2 gaussian_s1.5 maxdiff=1.3e-15"
+    },
+    {
+      "check": "sanity: blurred PSNR decreases with blur strength",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "sanity: clean baseline (default detectors) succeeds @3px on pilot pairs",
+      "pass": true,
+      "detail": "v_birdwoman__1-2/ORB: err=0.62; v_birdwoman__1-2/SIFT: err=0.32; i_veggies__1-2/ORB: err=0.30; i_veggies__1-2/SIFT: err=0.06"
+    },
+    {
+      "check": "QC images written",
+      "pass": true,
+      "detail": "42 files in qc/pilot_20261010-002906"
+    }
+  ],
+  "summary": {
+    "rows_by_group_detector": {
+      "('A', 'ORB')": 16,
+      "('A', 'SIFT')": 16,
+      "('B', 'ORB')": 16,
+      "('B', 'SIFT')": 16,
+      "('C', 'ORB')": 16,
+      "('C', 'SIFT')": 16,
+      "('CLEAN', 'ORB')": 4,
+      "('CLEAN', 'SIFT')": 4,
+      "('D', 'ORB')": 16,
+      "('D', 'SIFT')": 16
+    },
+    "rows_by_blur": {
+      "disk_r3": 16,
+      "disk_r5": 16,
+      "gaussian_s1.5": 16,
+      "gaussian_s3.0": 16,
+      "motion_l17_a0": 16,
+      "motion_l17_a90": 16,
+      "motion_l9_a0": 16,
+      "motion_l9_a90": 16,
+      "none": 8
+    },
+    "failure_reasons": {
+      "(success@3px)": 113,
+      "invalid_homography_horizon_in_overlap": 8,
+      "projection_error_gt_3px": 8,
+      "projection_error_gt_5px": 5,
+      "invalid_homography_singular": 2
+    },
+    "gt_flagged_pairs": []
+  },
+  "qc_files": [
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__blurred__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__blurred__ORB__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__blurred__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__blurred__SIFT__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__blurred__edges.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__clean__edges.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__unsharp_mask__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__unsharp_mask__ORB__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__unsharp_mask__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__unsharp_mask__SIFT__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__unsharp_mask__edges.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__wiener_known_psf__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__wiener_known_psf__ORB__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__wiener_known_psf__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__wiener_known_psf__SIFT__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__disk_r5__wiener_known_psf__edges.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__none__clean__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__none__clean__ORB__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__none__clean__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__none__clean__SIFT__matches.png",
+    "qc/pilot_20261010-002906/i_veggies__1-2__processing_panel.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__blurred__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__blurred__ORB__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__blurred__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__blurred__SIFT__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__blurred__edges.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__clean__edges.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__unsharp_mask__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__unsharp_mask__ORB__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__unsharp_mask__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__unsharp_mask__SIFT__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__unsharp_mask__edges.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__wiener_known_psf__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__wiener_known_psf__ORB__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__wiener_known_psf__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__wiener_known_psf__SIFT__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__disk_r5__wiener_known_psf__edges.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__none__clean__ORB__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__none__clean__ORB__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__none__clean__SIFT__keypoints.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__none__clean__SIFT__matches.png",
+    "qc/pilot_20261010-002906/v_birdwoman__1-2__processing_panel.png"
+  ]
+}

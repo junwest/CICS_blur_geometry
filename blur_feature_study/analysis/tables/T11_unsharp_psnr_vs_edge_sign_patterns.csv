@@ -1,0 +1,9 @@
+blur_id,psnr+ edge+,psnr+ edge-,psnr- edge+,tie
+gaussian_s1.5,24,0,0,0
+gaussian_s3.0,22,0,0,2
+disk_r3,24,0,0,0
+disk_r5,23,0,0,1
+motion_l9_a0,6,2,16,0
+motion_l9_a90,4,1,19,0
+motion_l17_a0,4,0,20,0
+motion_l17_a90,1,0,23,0

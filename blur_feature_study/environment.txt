@@ -1,0 +1,35 @@
+generated: 2026-10-10T00:43:05
+os: Windows-10-10.0.26300-SP0 (10.0.26300)
+cpu: Intel(R) Core(TM) i5-14400F | logical cores: 16
+ram_total_gb: 15.72
+gpu: NVIDIA GeForce RTX 4060, 8188 MiB, 610.88 (not used: all processing is CPU)
+python: 3.11.9 (C:\Users\김준서\Desktop\CICS\blur_feature_study\.venv\Scripts\python.exe)
+opencv: 5.0.0 (opencv-contrib-python), cv2 threads: 16
+numpy: 2.4.6
+scipy: 1.17.1
+scikit-image: 0.26.0
+pandas: 3.0.6
+pyyaml: 6.0.3
+
+pip freeze:
+colorama==0.4.6
+ImageIO==2.38.1
+iniconfig==2.3.1
+lazy-loader==0.6
+networkx==3.6.1
+numpy==2.4.6
+opencv-contrib-python==5.0.0.93
+packaging==26.3
+pandas==3.0.6
+pillow==12.3.0
+pluggy==1.6.0
+Pygments==2.21.0
+pytest==9.1.1
+python-dateutil==2.9.0.post0
+PyYAML==6.0.3
+scikit-image==0.26.0
+scipy==1.17.1
+six==1.17.0
+tifffile==2026.3.3
+tqdm==4.70.1
+tzdata==2026.5

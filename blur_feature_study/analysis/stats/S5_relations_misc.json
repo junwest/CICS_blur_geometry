@@ -1,0 +1,47 @@
+{
+  "unsharp_sign_patterns": {
+    "psnr+ edge+": {
+      "gaussian_s1.5": 24,
+      "gaussian_s3.0": 22,
+      "disk_r3": 24,
+      "disk_r5": 23,
+      "motion_l9_a0": 6,
+      "motion_l9_a90": 4,
+      "motion_l17_a0": 4,
+      "motion_l17_a90": 1
+    },
+    "psnr+ edge-": {
+      "gaussian_s1.5": 0,
+      "gaussian_s3.0": 0,
+      "disk_r3": 0,
+      "disk_r5": 0,
+      "motion_l9_a0": 2,
+      "motion_l9_a90": 1,
+      "motion_l17_a0": 0,
+      "motion_l17_a90": 0
+    },
+    "psnr- edge+": {
+      "gaussian_s1.5": 0,
+      "gaussian_s3.0": 0,
+      "disk_r3": 0,
+      "disk_r5": 0,
+      "motion_l9_a0": 16,
+      "motion_l9_a90": 19,
+      "motion_l17_a0": 20,
+      "motion_l17_a90": 23
+    },
+    "tie": {
+      "gaussian_s1.5": 0,
+      "gaussian_s3.0": 2,
+      "disk_r3": 0,
+      "disk_r5": 1,
+      "motion_l9_a0": 0,
+      "motion_l9_a90": 0,
+      "motion_l17_a0": 0,
+      "motion_l17_a90": 0
+    }
+  },
+  "val_wiener_agree_success": 14,
+  "val_wiener_agree_gt3": 16,
+  "val_wiener_n": 16
+}

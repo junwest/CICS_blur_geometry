@@ -1,0 +1,17 @@
+view,x,y,rho,p,n,sign_agreement,rho_median,rho_min,rho_max
+pooled_576_images,psnr,edge_f1,0.30966091674703183,2.884627662379263e-14,576,,,,
+within_image_contrasts,psnr,edge_f1,,,573,0.8586387434554974,,,
+per_pair_across_blur_A,psnr,edge_f1,,,24,,0.6428571428571429,0.03592878785739777,0.9285714285714287
+blur_condition_means_A,psnr,edge_f1,0.5952380952380953,0.11952980613879269,8,,,,
+pooled_576_images,ssim,edge_f1,0.5287460804941003,8.424639129780531e-43,576,,,,
+within_image_contrasts,ssim,edge_f1,,,573,0.8726003490401396,,,
+per_pair_across_blur_A,ssim,edge_f1,,,24,,0.7619047619047621,0.5476190476190477,0.9047619047619048
+blur_condition_means_A,ssim,edge_f1,0.8571428571428572,0.0065300172547152905,8,,,,
+pooled_576_images,psnr,edge_recall,0.278934603108888,9.385817282508938e-12,576,,,,
+within_image_contrasts,psnr,edge_recall,,,573,0.8621291448516579,,,
+per_pair_across_blur_A,psnr,edge_recall,,,24,,0.6428571428571429,0.03592878785739777,0.880952380952381
+blur_condition_means_A,psnr,edge_recall,0.6190476190476191,0.10173303745426478,8,,,,
+pooled_576_images,psnr,ssim,0.9116158666767138,8.584916195295506e-224,576,,,,
+within_image_contrasts,psnr,ssim,,,576,0.8923611111111112,,,
+per_pair_across_blur_A,psnr,ssim,,,24,,0.9047619047619048,0.6904761904761906,1.0
+blur_condition_means_A,psnr,ssim,0.8095238095238096,0.014902667686230067,8,,,,

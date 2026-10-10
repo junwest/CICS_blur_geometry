@@ -1,0 +1,12 @@
+{
+  "ORB_clean_fail5":[
+    "i_castle__1-5",
+    "v_artisans__1-5",
+    "v_astronautis__1-5",
+    "v_cartooncity__1-5",
+    "v_underground__1-5"
+  ],
+  "SIFT_clean_fail5":[
+    "v_artisans__1-5"
+  ]
+}

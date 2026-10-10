@@ -1,0 +1,9 @@
+detector,group,success_n,success_with_gt3_lt15,fail_with_gt3_ge30,fail_n
+ORB,A,91,2,30,101
+ORB,B,98,4,28,94
+ORB,C,107,1,17,85
+ORB,D,141,1,4,51
+SIFT,A,133,2,5,59
+SIFT,B,133,2,5,59
+SIFT,C,136,2,7,56
+SIFT,D,174,4,8,18

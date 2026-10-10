@@ -1,0 +1,8 @@
+detector,contrast,n,psnr_up,psnr_up_gt_down,psnr_down_gt_up,psnr_up_success_lost,psnr_down_success_gained,edge_up,edge_up_gt_down,edge_down_gt_up,rep_up,rep_up_gt_down,rep_down_gt_up,gt_up,gt_down,success_gained,success_lost
+ORB,C-A,192,114,26,42,2,10,186,52,1,183,51,4,123,55,26,10
+ORB,D-A,192,192,7,0,1,0,192,7,0,192,7,0,177,7,51,1
+ORB,B-A,192,0,0,0,0,0,0,0,0,176,65,11,99,68,20,13
+ORB,D-C,192,192,13,0,3,0,192,13,0,192,13,0,173,13,37,3
+SIFT,C-A,192,114,7,24,4,6,186,44,2,184,40,2,123,45,13,10
+SIFT,D-A,192,192,2,0,5,0,192,2,0,191,2,1,189,2,46,5
+SIFT,D-C,192,192,6,0,4,0,192,6,0,189,4,1,186,6,42,4

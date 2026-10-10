@@ -1,0 +1,9 @@
+detector,pair_id,blur_id,clean_err,clean_reason,clean_good,clean_gt3,D_err,D_good,D_gt3,D_prec
+ORB,i_castle__1-2,disk_r3,4.249740532347107,projection_error_gt_3px,30,19,2.7674359227664693,23,17,0.7391304347826086
+ORB,i_castle__1-2,motion_l9_a0,4.249740532347107,projection_error_gt_3px,30,19,1.7351344410033471,31,24,0.7741935483870968
+ORB,v_cartooncity__1-5,gaussian_s1.5,11.504103903324824,projection_error_gt_5px,41,18,1.9836017581368623,40,21,0.525
+ORB,v_cartooncity__1-5,disk_r3,11.504103903324824,projection_error_gt_5px,41,18,2.2380483029276497,32,20,0.625
+ORB,v_cartooncity__1-5,motion_l17_a0,11.504103903324824,projection_error_gt_5px,41,18,2.6129451398750336,27,13,0.4814814814814814
+SIFT,v_artisans__1-5,gaussian_s1.5,9.610507693886383,projection_error_gt_5px,54,32,1.746186454168839,56,31,0.5535714285714286
+SIFT,v_artisans__1-5,motion_l9_a90,9.610507693886383,projection_error_gt_5px,54,32,2.0871293874165024,54,31,0.5740740740740741
+SIFT,v_artisans__1-5,motion_l17_a90,9.610507693886383,projection_error_gt_5px,54,32,2.966209323464845,53,30,0.5660377358490566

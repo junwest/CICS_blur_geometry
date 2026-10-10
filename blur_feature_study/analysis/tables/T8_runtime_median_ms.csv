@@ -1,0 +1,11 @@
+detector,group,runtime_ms,runtime_processing_ms,runtime_detect_ms,runtime_match_ms,runtime_homography_ms
+ORB,CLEAN,15.8,0.0,10.3,3.4,0.7
+ORB,A,14.7,0.0,8.5,3.1,1.6
+ORB,B,15.8,0.0,9.7,3.0,1.5
+ORB,C,31.5,15.7,8.7,3.2,1.3
+ORB,D,205.5,187.2,10.3,3.3,0.7
+SIFT,CLEAN,55.4,0.0,51.3,3.7,0.6
+SIFT,A,50.7,0.0,45.4,2.3,0.9
+SIFT,B,50.5,0.0,45.4,2.3,0.9
+SIFT,C,67.7,15.7,46.7,2.9,0.9
+SIFT,D,244.7,187.2,48.8,3.7,0.6

@@ -1,0 +1,11 @@
+detector,group,insufficient_matches,invalid_homography_horizon_in_overlap,invalid_homography_singular,projection_error_gt_3px,projection_error_gt_5px,success@3px
+ORB,CLEAN,0,2,0,1,3,18
+ORB,A,0,27,1,24,49,91
+ORB,B,0,18,9,22,45,98
+ORB,C,1,21,5,16,42,107
+ORB,D,0,12,4,13,22,141
+SIFT,CLEAN,0,0,0,0,1,23
+SIFT,A,0,9,6,16,28,133
+SIFT,B,0,9,6,16,28,133
+SIFT,C,0,6,6,19,25,136
+SIFT,D,0,1,0,11,6,174

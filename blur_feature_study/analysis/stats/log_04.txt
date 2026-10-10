@@ -1,0 +1,147 @@
+== image-level relations
+                      view     x            y    rho      p    n  sign_agreement  rho_median  rho_min  rho_max
+0        pooled_576_images  psnr      edge_f1  0.310  0.000  576             NaN         NaN      NaN      NaN
+1   within_image_contrasts  psnr      edge_f1    NaN    NaN  573           0.859         NaN      NaN      NaN
+2   per_pair_across_blur_A  psnr      edge_f1    NaN    NaN   24             NaN       0.643    0.036    0.929
+3   blur_condition_means_A  psnr      edge_f1  0.595  0.120    8             NaN         NaN      NaN      NaN
+4        pooled_576_images  ssim      edge_f1  0.529  0.000  576             NaN         NaN      NaN      NaN
+5   within_image_contrasts  ssim      edge_f1    NaN    NaN  573           0.873         NaN      NaN      NaN
+6   per_pair_across_blur_A  ssim      edge_f1    NaN    NaN   24             NaN       0.762    0.548    0.905
+7   blur_condition_means_A  ssim      edge_f1  0.857  0.007    8             NaN         NaN      NaN      NaN
+8        pooled_576_images  psnr  edge_recall  0.279  0.000  576             NaN         NaN      NaN      NaN
+9   within_image_contrasts  psnr  edge_recall    NaN    NaN  573           0.862         NaN      NaN      NaN
+10  per_pair_across_blur_A  psnr  edge_recall    NaN    NaN   24             NaN       0.643    0.036    0.881
+11  blur_condition_means_A  psnr  edge_recall  0.619  0.102    8             NaN         NaN      NaN      NaN
+12       pooled_576_images  psnr         ssim  0.912  0.000  576             NaN         NaN      NaN      NaN
+13  within_image_contrasts  psnr         ssim    NaN    NaN  576           0.892         NaN      NaN      NaN
+14  per_pair_across_blur_A  psnr         ssim    NaN    NaN   24             NaN       0.905    0.690    1.000
+15  blur_condition_means_A  psnr         ssim  0.810  0.015    8             NaN         NaN      NaN      NaN
+
+== Unsharp (C-A): sign pattern of dPSNR vs dEdgeF1 per blur (24 pairs each)
+pattern         psnr+ edge+  psnr+ edge-  psnr- edge+  tie
+blur_id                                                   
+gaussian_s1.5            24            0            0    0
+gaussian_s3.0            22            0            0    2
+disk_r3                  24            0            0    0
+disk_r5                  23            0            0    1
+motion_l9_a0              6            2           16    0
+motion_l9_a90             4            1           19    0
+motion_l17_a0             4            0           20    0
+motion_l17_a90            1            0           23    0
+
+== detector-level relations (pooled Spearman; rows A/C/D)
+y                                gt_correct_matches_3px  h_err_rank_fail_worst  homography_success_3px  log_gt_correct_ratio  match_precision_3px
+detector x                                                                                                                                       
+ORB      edge_f1                                  0.211                  0.205                   0.201                 0.527                0.211
+         keypoint_repeatability                   0.356                  0.349                   0.325                 0.757                0.394
+         psnr                                     0.142                  0.229                   0.149                 0.470                0.123
+         ssim                                     0.144                  0.259                   0.199                 0.525                0.087
+SIFT     edge_f1                                  0.368                  0.230                   0.230                 0.615                0.254
+         keypoint_repeatability                   0.626                  0.443                   0.384                 0.846                0.524
+         psnr                                     0.318                  0.279                   0.234                 0.534                0.160
+         ssim                                     0.364                  0.278                   0.265                 0.678                0.177
+
+== within-cell sign agreement P(sign d_metric == sign d_target) over C-A, D-A, D-C contrasts
+y                                gt_correct_matches_3px  homography_error_mean  homography_success_3px  match_precision_3px
+detector x                                                                                                                 
+ORB      edge_f1                                  0.866                  0.726                   0.874                0.789
+         keypoint_repeatability                   0.863                  0.727                   0.898                0.792
+         psnr                                     0.839                  0.717                   0.875                0.790
+         ssim                                     0.832                  0.700                   0.836                0.785
+SIFT     edge_f1                                  0.901                  0.723                   0.842                0.813
+         keypoint_repeatability                   0.909                  0.722                   0.833                0.819
+         psnr                                     0.929                  0.730                   0.842                0.814
+         ssim                                     0.886                  0.726                   0.792                0.814
+
+== per-pair Spearman across 8 blur conditions (A rows): median [q1, q3]
+   detector                    view                       x                       y  rho   p   n  sign_agreement  rho_median  rho_q1  rho_q3
+9       ORB  per_pair_across_blur_A                    psnr  gt_correct_matches_3px  NaN NaN  24             NaN       0.895   0.805   0.930
+10      ORB  per_pair_across_blur_A                    psnr     match_precision_3px  NaN NaN  24             NaN       0.857   0.714   0.939
+20      ORB  per_pair_across_blur_A                    ssim  gt_correct_matches_3px  NaN NaN  24             NaN       0.810   0.587   0.869
+21      ORB  per_pair_across_blur_A                    ssim     match_precision_3px  NaN NaN  24             NaN       0.726   0.524   0.852
+31      ORB  per_pair_across_blur_A                 edge_f1  gt_correct_matches_3px  NaN NaN  24             NaN       0.333   0.114   0.681
+32      ORB  per_pair_across_blur_A                 edge_f1     match_precision_3px  NaN NaN  24             NaN       0.257  -0.003   0.565
+42      ORB  per_pair_across_blur_A  keypoint_repeatability  gt_correct_matches_3px  NaN NaN  24             NaN       0.940   0.800   0.976
+43      ORB  per_pair_across_blur_A  keypoint_repeatability     match_precision_3px  NaN NaN  24             NaN       0.860   0.690   0.952
+53     SIFT  per_pair_across_blur_A                    psnr  gt_correct_matches_3px  NaN NaN  24             NaN       0.884   0.810   0.952
+54     SIFT  per_pair_across_blur_A                    psnr     match_precision_3px  NaN NaN  24             NaN       0.690   0.577   0.828
+64     SIFT  per_pair_across_blur_A                    ssim  gt_correct_matches_3px  NaN NaN  24             NaN       0.762   0.526   0.852
+65     SIFT  per_pair_across_blur_A                    ssim     match_precision_3px  NaN NaN  24             NaN       0.567   0.375   0.637
+75     SIFT  per_pair_across_blur_A                 edge_f1  gt_correct_matches_3px  NaN NaN  24             NaN       0.298   0.031   0.667
+76     SIFT  per_pair_across_blur_A                 edge_f1     match_precision_3px  NaN NaN  24             NaN       0.190   0.003   0.316
+86     SIFT  per_pair_across_blur_A  keypoint_repeatability  gt_correct_matches_3px  NaN NaN  24             NaN       0.955   0.879   0.976
+87     SIFT  per_pair_across_blur_A  keypoint_repeatability     match_precision_3px  NaN NaN  24             NaN       0.836   0.638   0.952
+
+== models
+                                         model              predictors  coef_z  se_cluster       p  mcfadden_r2     auc     n                    term    coef  r2_within
+0                               logit_success3                    psnr  0.4942      0.2497  0.0478       0.0659  0.6686  1152                     NaN     NaN        NaN
+1                               logit_success3                    ssim  0.4721      0.2330  0.0428       0.0669  0.6745  1152                     NaN     NaN        NaN
+2                               logit_success3                 edge_f1  0.4427      0.1059  0.0000       0.0629  0.6719  1152                     NaN     NaN        NaN
+3                               logit_success3  keypoint_repeatability  0.8963      0.1641  0.0000       0.1326  0.7440  1152                     NaN     NaN        NaN
+4                         logit_success3_joint                    all4  0.2754      0.4831  0.5686       0.1385     NaN  1152                    psnr     NaN        NaN
+5                         logit_success3_joint                    all4 -0.1459      0.3800  0.7009       0.1385     NaN  1152                    ssim     NaN        NaN
+6                         logit_success3_joint                    all4 -0.1390      0.1515  0.3588       0.1385     NaN  1152                 edge_f1     NaN        NaN
+7                         logit_success3_joint                    all4  0.9688      0.3185  0.0024       0.1385     NaN  1152  keypoint_repeatability     NaN        NaN
+8                           logit_success3_ORB                    psnr  0.3614      0.2748  0.1884       0.0218     NaN   576                     NaN     NaN        NaN
+9                           logit_success3_ORB                    ssim  0.4025      0.2620  0.1245       0.0283     NaN   576                     NaN     NaN        NaN
+10                          logit_success3_ORB                 edge_f1  0.3974      0.1207  0.0010       0.0278     NaN   576                     NaN     NaN        NaN
+11                          logit_success3_ORB  keypoint_repeatability  0.7342      0.1967  0.0002       0.0825     NaN   576                     NaN     NaN        NaN
+12                         logit_success3_SIFT                    psnr  0.7135      0.2485  0.0041       0.0647     NaN   576                     NaN     NaN        NaN
+13                         logit_success3_SIFT                    ssim  0.5625      0.2468  0.0226       0.0523     NaN   576                     NaN     NaN        NaN
+14                         logit_success3_SIFT                 edge_f1  0.5004      0.1446  0.0005       0.0424     NaN   576                     NaN     NaN        NaN
+15                         logit_success3_SIFT  keypoint_repeatability  1.2002      0.1617  0.0000       0.1473     NaN   576                     NaN     NaN        NaN
+16        within_cell_OLS_log_gt_correct_ratio                    psnr     NaN      0.0238  0.0000          NaN     NaN  1152                     NaN  0.1686     0.6336
+17        within_cell_OLS_log_gt_correct_ratio                    ssim     NaN      0.6421  0.0000          NaN     NaN  1152                     NaN  6.6236     0.6906
+18        within_cell_OLS_log_gt_correct_ratio                 edge_f1     NaN      0.1986  0.0000          NaN     NaN  1152                     NaN  2.2102     0.5037
+19        within_cell_OLS_log_gt_correct_ratio  keypoint_repeatability     NaN      0.2513  0.0000          NaN     NaN  1152                     NaN  3.1714     0.7725
+20  within_cell_OLS_log_gt_correct_ratio_joint                    all4     NaN      0.0172  0.2041          NaN     NaN  1152                    psnr -0.0218     0.8168
+21  within_cell_OLS_log_gt_correct_ratio_joint                    all4     NaN      0.8040  0.0001          NaN     NaN  1152                    ssim  3.0583     0.8168
+22  within_cell_OLS_log_gt_correct_ratio_joint                    all4     NaN      0.1770  0.0004          NaN     NaN  1152                 edge_f1 -0.6236     0.8168
+23  within_cell_OLS_log_gt_correct_ratio_joint                    all4     NaN      0.3498  0.0000          NaN     NaN  1152  keypoint_repeatability  2.9642     0.8168
+24         within_cell_OLS_match_precision_3px                    psnr     NaN      0.0051  0.0000          NaN     NaN  1152                     NaN  0.0261     0.4496
+25         within_cell_OLS_match_precision_3px                    ssim     NaN      0.1749  0.0000          NaN     NaN  1152                     NaN  0.9672     0.4359
+26         within_cell_OLS_match_precision_3px                 edge_f1     NaN      0.0529  0.0000          NaN     NaN  1152                     NaN  0.3406     0.3541
+27         within_cell_OLS_match_precision_3px  keypoint_repeatability     NaN      0.0584  0.0000          NaN     NaN  1152                     NaN  0.5199     0.6145
+28   within_cell_OLS_match_precision_3px_joint                    all4     NaN      0.0056  0.2406          NaN     NaN  1152                    psnr -0.0065     0.6401
+29   within_cell_OLS_match_precision_3px_joint                    all4     NaN      0.0972  0.0872          NaN     NaN  1152                    ssim  0.1662     0.6401
+30   within_cell_OLS_match_precision_3px_joint                    all4     NaN      0.0365  0.0000          NaN     NaN  1152                 edge_f1 -0.1561     0.6401
+31   within_cell_OLS_match_precision_3px_joint                    all4     NaN      0.0414  0.0000          NaN     NaN  1152  keypoint_repeatability  0.7106     0.6401
+
+== dissociation counts per contrast (192 cells)
+  detector contrast    n  psnr_up  psnr_up_gt_down  psnr_down_gt_up  psnr_up_success_lost  psnr_down_success_gained  edge_up  edge_up_gt_down  edge_down_gt_up  rep_up  rep_up_gt_down  rep_down_gt_up  gt_up  gt_down  success_gained  success_lost
+0      ORB      C-A  192      114               26               42                     2                        10      186               52                1     183              51               4    123       55              26            10
+1      ORB      D-A  192      192                7                0                     1                         0      192                7                0     192               7               0    177        7              51             1
+2      ORB      B-A  192        0                0                0                     0                         0        0                0                0     176              65              11     99       68              20            13
+3      ORB      D-C  192      192               13                0                     3                         0      192               13                0     192              13               0    173       13              37             3
+4     SIFT      C-A  192      114                7               24                     4                         6      186               44                2     184              40               2    123       45              13            10
+5     SIFT      D-A  192      192                2                0                     5                         0      192                2                0     191               2               1    189        2              46             5
+6     SIFT      D-C  192      192                6                0                     4                         0      192                6                0     189               4               1    186        6              42             4
+
+== validation: PSNR-selected balance vs success/GT-correct-best balance (8 validation pairs)
+   detector         blur_id  psnr_best  success_best  gt3_best  success_at_psnr_best  success_max  gt3_at_psnr_best  gt3_max
+0       ORB   gaussian_s1.5      0.005         0.005     0.005                 0.875        0.875           302.750  302.750
+1       ORB   gaussian_s3.0      0.005         0.005     0.005                 0.875        0.875           194.250  194.250
+2       ORB         disk_r3      0.005         0.020     0.005                 0.750        0.875           281.250  281.250
+3       ORB         disk_r5      0.005         0.005     0.005                 0.875        0.875           254.250  254.250
+4       ORB    motion_l9_a0      0.005         0.005     0.005                 0.875        0.875           298.625  298.625
+5       ORB   motion_l9_a90      0.005         0.005     0.005                 0.875        0.875           293.750  293.750
+6       ORB   motion_l17_a0      0.005         0.020     0.005                 0.750        0.875           262.375  262.375
+7       ORB  motion_l17_a90      0.005         0.005     0.005                 0.875        0.875           262.250  262.250
+8      SIFT   gaussian_s1.5      0.005         0.005     0.005                 0.875        0.875           293.875  293.875
+9      SIFT   gaussian_s3.0      0.005         0.005     0.005                 0.750        0.750           144.750  144.750
+10     SIFT         disk_r3      0.005         0.005     0.005                 0.875        0.875           252.000  252.000
+11     SIFT         disk_r5      0.005         0.005     0.005                 0.875        0.875           185.750  185.750
+12     SIFT    motion_l9_a0      0.005         0.005     0.005                 0.875        0.875           286.625  286.625
+13     SIFT   motion_l9_a90      0.005         0.005     0.005                 0.875        0.875           275.500  275.500
+14     SIFT   motion_l17_a0      0.005         0.005     0.005                 0.875        0.875           221.375  221.375
+15     SIFT  motion_l17_a90      0.005         0.005     0.005                 0.875        0.875           210.375  210.375
+
+== keypoint count vs accuracy
+  detector  rho_kp_vs_gt3  rho_kp_vs_precision      n contrast  cells_more_kp  more_kp_but_fewer_correct  more_kp_but_lower_precision  more_kp_and_success_lost
+0      ORB       0.110380             0.160872  768.0      NaN            NaN                        NaN                          NaN                       NaN
+1      ORB            NaN                  NaN    NaN      B-A           91.0                       21.0                         46.0                       5.0
+2      ORB            NaN                  NaN    NaN      C-A          107.0                       31.0                         37.0                       3.0
+3      ORB            NaN                  NaN    NaN      D-A          107.0                        6.0                         10.0                       0.0
+4     SIFT       0.446353             0.473806  576.0      NaN            NaN                        NaN                          NaN                       NaN
+5     SIFT            NaN                  NaN    NaN      C-A          177.0                       42.0                         69.0                      10.0
+6     SIFT            NaN                  NaN    NaN      D-A          178.0                        0.0                         11.0                       5.0

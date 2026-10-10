@@ -1,0 +1,133 @@
+# Experiment configuration (single source of truth).
+# Written BEFORE running validation/test; selection rules below are pre-registered.
+experiment:
+  name: blur_feature_study
+  title_ko: 블러 영상 복원에 따른 구조적 특징 보존성과 기하학적 정합 성능 분석
+  title_en: Analysis of Structural Feature Preservation and Geometric Matching Performance in Deblurred Images
+  seed: 42
+
+paths:                       # relative to the project root (blur_feature_study/)
+  hpatches_root: data/hpatches-sequences-release
+  manifest: data/dataset_manifest.csv
+  results_root: results
+  match_details_root: results/matching_details
+  qc_root: qc
+  logs_root: logs
+
+dataset:
+  name: HPatches full image sequences (hpatches-sequences-release)
+  reference_index: 1
+  target_indices: [2, 5]
+  # Sequence selection: rng = numpy.random.default_rng(seed); for prefix in [i_, v_]:
+  #   names = sorted(sequences with prefix); perm = rng.permutation(len(names));
+  #   chosen = names[perm[:n_val+n_test]]; first n_val -> validation, rest -> test.
+  # The same rng object is used for i_ then v_ (order matters for reproducibility).
+  n_validation: {illumination: 2, viewpoint: 2}
+  n_test: {illumination: 6, viewpoint: 6}
+  homography_direction: reference_to_target   # H_1_k maps image-1 pixel coords to image-k pixel coords (verified in prepare_data)
+
+preprocessing:
+  color_to_gray: cv2.COLOR_BGR2GRAY          # gray conversion BEFORE resizing
+  max_long_side: 960
+  no_upscale: true
+  resize_interpolation: INTER_AREA
+  # Pixel-centre convention (OpenCV keypoints): x_new = sx*(x+0.5)-0.5  ->  S = [[sx,0,0.5*sx-0.5],[0,sy,0.5*sy-0.5],[0,0,1]]
+  # H_resized = S_target @ H_original @ inv(S_reference), then normalised so H[2,2] = 1.
+  scale_matrix_convention: pixel_center
+  pixel_dtype: uint8                          # every stored image (blurred / processed) is rounded+clipped to uint8
+  data_range: 255
+  # Common boundary rule for ALL convolutions (blur generation, unsharp mask Gaussian):
+  # half-sample symmetric reflection (cv2.BORDER_REFLECT == numpy 'symmetric' == scipy.ndimage 'reflect').
+  border_mode: reflect_half_sample
+  # Common valid evaluation region: pixels at least `valid_margin_px` from every image border.
+  # Rule: margin >= max PSF radius (12) + unsharp radius (5) + max tolerance (3) + Sobel/NMS support (2) = 22 -> 24.
+  valid_margin_px: 24
+
+blur:
+  gaussian_truncate: 4.0          # kernel radius = ceil(truncate*sigma)
+  disk_supersample: 33            # anti-aliased disk: per-pixel area coverage by 33x33 sub-sampling
+  conditions:
+    - {blur_id: gaussian_s1.5,  blur_type: gaussian,      strength: 1.5, angle: null}
+    - {blur_id: gaussian_s3.0,  blur_type: gaussian,      strength: 3.0, angle: null}
+    - {blur_id: disk_r3,        blur_type: defocus_disk,  strength: 3,   angle: null}
+    - {blur_id: disk_r5,        blur_type: defocus_disk,  strength: 5,   angle: null}
+    - {blur_id: motion_l9_a0,   blur_type: motion_linear, strength: 9,   angle: 0}
+    - {blur_id: motion_l9_a90,  blur_type: motion_linear, strength: 9,   angle: 90}
+    - {blur_id: motion_l17_a0,  blur_type: motion_linear, strength: 17,  angle: 0}
+    - {blur_id: motion_l17_a90, blur_type: motion_linear, strength: 17,  angle: 90}
+  # strength = sigma (gaussian) / radius px (defocus_disk) / length px (motion_linear)
+  # angle: 0 deg = horizontal motion (along x), 90 deg = vertical motion (along y)
+  noise: none                     # only 8-bit quantisation of the blurred image
+
+processing:
+  unsharp_mask:                   # I_sharp = I_blur + alpha * (I_blur - G_sigma(I_blur)), clipped to [0,255]
+    alpha: 1.0
+    sigma: 1.2
+    truncate: 4.0
+    category: sharpening (not an inverse-problem restoration)
+  wiener:                         # Known-PSF / Oracle-PSF restoration (NOT blind deblurring)
+    implementation: skimage.restoration.wiener (Wiener-Hunt, Laplacian regulariser), clip=False
+    formula: X = conj(H) * Y / (|H|^2 + balance * |L|^2)
+    boundary: symmetric (2H x 2W mirror) extension before FFT, then crop -> exact for symmetric PSF + reflect blur
+    input_range: "[0,1] float (uint8/255), output clipped to [0,255] and quantised to uint8"
+    balance_candidates: [0.005, 0.02, 0.08]
+    pilot_placeholder_balance: 0.02
+
+detectors:
+  common:
+    nfeatures: 1500                # identical feature budget in ALL groups (fairness)
+    detection_mask: valid_region   # same border mask (valid_margin_px) for reference, clean target and processed targets
+  ORB:
+    default: {nfeatures: 1500, scaleFactor: 1.2, nlevels: 8, edgeThreshold: 31, firstLevel: 0, WTA_K: 2, scoreType: HARRIS, patchSize: 31, fastThreshold: 20}
+    tuning_grid: {scaleFactor: [1.1, 1.2], nlevels: [8, 12], fastThreshold: [10, 20]}
+    pilot_placeholder: {scaleFactor: 1.1, nlevels: 12, fastThreshold: 10}
+  SIFT:
+    default: {nfeatures: 1500, nOctaveLayers: 3, contrastThreshold: 0.04, edgeThreshold: 10.0, sigma: 1.6, enable_precise_upscale: false}
+    tuning_grid: {contrastThreshold: [0.02, 0.04], sigma: [1.2, 1.6]}
+    pilot_placeholder: {contrastThreshold: 0.02, sigma: 1.2}
+
+matching:
+  pair: clean_reference <-> processed_target   # query = reference descriptors, train = target descriptors
+  matcher: BFMatcher(crossCheck=False)
+  norm: {ORB: NORM_HAMMING, SIFT: NORM_L2}
+  knn_k: 2
+  ratio: 0.75                                   # keep m if d1 < ratio * d2 (strict); queries with < 2 neighbours are dropped
+
+ransac:
+  method: cv2.RANSAC
+  reproj_threshold_px: 3.0
+  max_iters: 2000
+  confidence: 0.995
+  min_matches: 4
+
+evaluation:
+  psnr: {data_range: 255, region: valid}
+  ssim: {data_range: 255, region: valid, gaussian_weights: true, sigma: 1.5, use_sample_covariance: false, K1: 0.01, K2: 0.03}
+  canny: {threshold1: 80, threshold2: 160, L2gradient: true, apertureSize: 3}
+  edge_tolerance_px: 2.0            # Euclidean distance-transform tolerance, no one-to-one constraint; edges counted inside valid region
+  repeatability:
+    tolerance_px: 3.0
+    one_to_one: true                # max-cardinality, min-cost bipartite assignment (Hungarian per connected component)
+    deduplicate_positions_decimals: 3   # identical (x,y) keypoints (e.g. SIFT multi-orientation) counted once
+    clean_reference_config: same_as_processed   # extra column uses default-config clean keypoints
+  gt_match_thresholds_px: [3, 5]
+  homography:
+    grid_n: 10                      # 10x10 grid over the reference valid region
+    min_valid_grid_points: 10       # grid points whose H_gt projection falls in the target valid region
+    success_thresholds_px: [3, 5]   # success = valid H_est AND mean grid error <= threshold
+    min_abs_w: 1.0e-8
+
+selection_rules:                    # PRE-REGISTERED (validation split only)
+  detector_tuning:
+    scope: one fixed config per detector, pooled over all validation pairs x all 8 blur conditions (blurred images, group B candidates)
+    order:
+      - "1. maximise mean homography_success_3px"
+      - "2. minimise median of homography_error_mean (failures counted as +inf)"
+      - "3. maximise mean gt_correct_matches_3px"
+      - "4. prefer the default-equivalent config, then grid order"
+  wiener_balance:
+    scope: one balance per blur condition (PSF is known per condition), pooled over validation pairs
+    order:
+      - "1. maximise mean PSNR (clean target vs restored target, valid region)"
+      - "2. maximise mean SSIM"
+      - "3. prefer the larger balance (stronger regularisation)"

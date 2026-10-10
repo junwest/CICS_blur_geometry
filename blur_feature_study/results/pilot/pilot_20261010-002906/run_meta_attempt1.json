@@ -1,0 +1,36 @@
+{
+  "run_id": "pilot_20261010-002906",
+  "phase": "pilot",
+  "attempt": 1,
+  "argv": [
+    "C:\\Users\\김준서\\Desktop\\CICS\\blur_feature_study\\src\\run_experiment.py",
+    "--phase",
+    "pilot"
+  ],
+  "start": "2026-10-10T00:29:08",
+  "config_hash": "3315ea402938751e",
+  "code_hash": "dd0012da1f68d4c7",
+  "pairs": [
+    "v_birdwoman__1-2",
+    "i_veggies__1-2"
+  ],
+  "blur_ids": [
+    "none",
+    "gaussian_s1.5",
+    "gaussian_s3.0",
+    "disk_r3",
+    "disk_r5",
+    "motion_l9_a0",
+    "motion_l9_a90",
+    "motion_l17_a0",
+    "motion_l17_a90"
+  ],
+  "selected_params": null,
+  "selected_params_sha256": null,
+  "expected_rows": 136,
+  "end": "2026-10-10T00:29:29",
+  "elapsed_s": 20.2,
+  "rows_written_this_attempt": 136,
+  "final_rows": 136,
+  "final_rows_with_pipeline_error": 0
+}

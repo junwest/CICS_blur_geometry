@@ -1,0 +1,60 @@
+source_validation_run: validation_20261010-003108
+selection_rules:
+  detector_tuning:
+    scope: one fixed config per detector, pooled over all validation pairs x all 8
+      blur conditions (blurred images, group B candidates)
+    order:
+    - 1. maximise mean homography_success_3px
+    - 2. minimise median of homography_error_mean (failures counted as +inf)
+    - 3. maximise mean gt_correct_matches_3px
+    - 4. prefer the default-equivalent config, then grid order
+  wiener_balance:
+    scope: one balance per blur condition (PSF is known per condition), pooled over
+      validation pairs
+    order:
+    - 1. maximise mean PSNR (clean target vs restored target, valid region)
+    - 2. maximise mean SSIM
+    - 3. prefer the larger balance (stronger regularisation)
+gt_flagged_validation_pairs:
+- i_londonbridge__1-2
+- i_londonbridge__1-5
+ORB:
+  selected_config: orb_sf1.2_nl12_ft20
+  decided_by: 1:success_3px
+  params:
+    nfeatures: 1500
+    scaleFactor: 1.2
+    nlevels: 12
+    edgeThreshold: 31
+    firstLevel: 0
+    WTA_K: 2
+    scoreType: HARRIS
+    patchSize: 31
+    fastThreshold: 20
+  validation_success_3px: 0.671875
+  robustness_excluding_gt_flagged:
+    selected_config: orb_sf1.2_nl12_ft20
+    same_as_main_choice: true
+SIFT:
+  selected_config: default
+  decided_by: 1:success_3px
+  params:
+    nfeatures: 1500
+    nOctaveLayers: 3
+    contrastThreshold: 0.04
+    edgeThreshold: 10.0
+    sigma: 1.6
+    enable_precise_upscale: false
+  validation_success_3px: 0.640625
+  robustness_excluding_gt_flagged:
+    selected_config: default
+    same_as_main_choice: true
+wiener_balance:
+  disk_r3: 0.005
+  disk_r5: 0.005
+  gaussian_s1.5: 0.005
+  gaussian_s3.0: 0.005
+  motion_l17_a0: 0.005
+  motion_l17_a90: 0.005
+  motion_l9_a0: 0.005
+  motion_l9_a90: 0.005
