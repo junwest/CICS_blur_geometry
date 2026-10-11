@@ -1,0 +1,23 @@
+{
+  "run_id": "ext_inputs_20261010-222114",
+  "n_images": 240,
+  "elapsed_s": 4.0,
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "numpy": "2.4.6",
+    "opencv": "5.0.0",
+    "cv2_threads": 16,
+    "scipy": "1.17.1",
+    "scikit-image": "0.26.0",
+    "pandas": "3.0.6",
+    "base_code_hash": "b5fa4afb6d5dad33",
+    "ext_code_hash": "43e90a988846bddb",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+  },
+  "counts": {
+    "blurred_target": 192,
+    "clean_target": 24,
+    "blurred_reference": 24
+  }
+}

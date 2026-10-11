@@ -1,0 +1,52 @@
+{
+  "run_id": "ext_tracking_20261011-163146",
+  "source_run": "ext_main_20261011-162418",
+  "tracking_config": {
+    "reference_set": "Clean pipeline ratio-test matches with GT error <= 3 px (per pair, detector)",
+    "link_radius_px": 3.0,
+    "location_dedup_decimals": 3,
+    "link_status": {
+      "lost": "no condition location within link_radius of the clean location",
+      "unique": "exactly one condition location within link_radius AND that location has exactly one clean location within link_radius",
+      "ambiguous": "any other case with >= 1 candidate (reported separately, excluded from displacement statistics)"
+    },
+    "chance_baseline": "same rule applied to clean locations shifted by (+-20,0) and (0,+-20) px (shifted points kept only inside the valid region)",
+    "states": [
+      "not_redetected",
+      "redetected_not_correct",
+      "correct"
+    ],
+    "outside_set": "GT-correct matches whose reference keypoint is not in the reference set, split by whether the target keypoint links to any clean location",
+    "fixed_landmark_h": {
+      "landmarks": "reference-set correspondences whose clean target location is UNIQUELY linked in both the B-detection and the R-detection of the same cell",
+      "min_landmarks": 8,
+      "estimator": "cv2.findHomography(method=0) on all landmarks (least squares + LM refinement; identity and count fixed, no RANSAC)",
+      "targets_compared": [
+        "clean_position",
+        "B_position",
+        "R_position"
+      ],
+      "label": "diagnostic (uses Clean + GT); not a matching result"
+    },
+    "oracle_inlier_h": {
+      "rule": "cv2.findHomography(method=0) on all GT-correct (<=3 px) ratio-test matches of a condition; min 8",
+      "label": "diagnostic (uses GT); not a matching result"
+    }
+  },
+  "n_state_rows": 3888,
+  "gt_correct_crosscheck_with_raw_results": true,
+  "elapsed_s": 38.6,
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "numpy": "2.4.6",
+    "opencv": "5.0.0",
+    "cv2_threads": 16,
+    "scipy": "1.17.1",
+    "scikit-image": "0.26.0",
+    "pandas": "3.0.6",
+    "base_code_hash": "b5fa4afb6d5dad33",
+    "ext_code_hash": "f42df172cac33e97",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "fixed_landmark_unanalyzable_reasons": {
+    "ORB/unsharp": {
+      "insufficient_points_lt8": 170
+    },
+    "ORB/wiener": {
+      "insufficient_points_lt8": 180
+    },
+    "ORB/nafnet": {
+      "insufficient_points_lt8": 185
+    },
+    "SIFT/unsharp": {
+      "insufficient_points_lt8": 19
+    },
+    "SIFT/wiener": {
+      "insufficient_points_lt8": 21
+    },
+    "SIFT/nafnet": {
+      "insufficient_points_lt8": 27
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "inputs": "ext_inputs_20261010-222114",
+  "nafnet": "ext_nafnet_20261010-222216",
+  "main": "ext_main_20261011-162418",
+  "nafnet_checks": "ext_nafchk_20261011-163038",
+  "tracking": "ext_tracking_20261011-163146",
+  "bothblur": "ext_bothblur_20261011-163226",
+  "mismatch": "ext_mismatch_20261011-163426"
+}

@@ -1,0 +1,37 @@
+{
+  "run_id": "ext_main_20261011-162418",
+  "keep_awake": true,
+  "nafnet_run": "ext_nafnet_20261010-222216",
+  "nafnet_device": "NVIDIA GeForce RTX 4060",
+  "n_rows": 3888,
+  "n_image_rows": 768,
+  "limit_pairs": 0,
+  "elapsed_s": 319.6,
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "numpy": "2.4.6",
+    "opencv": "5.0.0",
+    "cv2_threads": 16,
+    "scipy": "1.17.1",
+    "scikit-image": "0.26.0",
+    "pandas": "3.0.6",
+    "base_code_hash": "b5fa4afb6d5dad33",
+    "ext_code_hash": "f42df172cac33e97",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+  },
+  "timing_scope": {
+    "runtime_processing_ms": "Unsharp/Wiener: in-process CPU (single process, cv2/numpy threads as configured); NAFNet: GPU t_total_ms from the NAFNet manifest (uint8 in memory -> uint8 out, excludes model load, warm-up and PNG I/O). Not comparable across devices.",
+    "runtime_detect_ms": "detector.detect() on the detection image (stage rows); detectAndCompute for CLEAN",
+    "runtime_describe_ms": "detector.compute() on the descriptor image",
+    "runtime_detect_and_compute_ms": "detectAndCompute on the same image (BB/RR/CLEAN; base-comparable)",
+    "runtime_ms": "processing + detect + describe + match + homography (reference detection excluded, as in base)"
+  },
+  "counts": {
+    "BB": 384,
+    "BR": 1152,
+    "CLEAN": 48,
+    "RB": 1152,
+    "RR": 1152
+  }
+}

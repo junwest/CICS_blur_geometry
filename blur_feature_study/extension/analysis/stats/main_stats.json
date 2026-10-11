@@ -1,0 +1,27 @@
+{
+  "gt_flagged_pairs": [
+    "v_cartooncity__1-5"
+  ],
+  "clean_fail_pairs_3px": {
+    "ORB": [
+      "i_castle__1-2",
+      "i_castle__1-5",
+      "v_artisans__1-5",
+      "v_astronautis__1-5",
+      "v_cartooncity__1-5",
+      "v_underground__1-5"
+    ],
+    "SIFT": [
+      "v_artisans__1-5"
+    ]
+  },
+  "n_rows": 3888,
+  "rows_by_stage": {
+    "BB": 384,
+    "BR": 1152,
+    "CLEAN": 48,
+    "RB": 1152,
+    "RR": 1152
+  },
+  "nafnet_divergent_target_cells_per_detector": 13
+}

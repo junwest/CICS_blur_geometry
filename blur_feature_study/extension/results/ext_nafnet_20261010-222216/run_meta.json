@@ -1,0 +1,134 @@
+{
+  "run_id": "ext_nafnet_20261010-222216",
+  "inputs_run": "ext_inputs_20261010-222114",
+  "n_images": 240,
+  "device": "cuda",
+  "device_name": "NVIDIA GeForce RTX 4060",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "numpy": "2.4.6",
+  "opencv": "5.0.0",
+  "python": "3.11.9",
+  "numerics": {
+    "allow_tf32_matmul": false,
+    "allow_tf32_cudnn": false,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "torch_threads": 1
+  },
+  "model": {
+    "checkpoint_sha256": "19394e6155d12ef6371d1d57496f87f0ec88f92bdffa27c0792690722d5d1a5c",
+    "n_params": 17111907,
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "repo_files_sha256": {
+      "basicsr/models/archs/NAFNet_arch.py": "4c1ae324f77859f88b0214c8c6d95385c47f55b48b5c2e64eadeb0eec8cc28b0",
+      "basicsr/models/archs/local_arch.py": "4edf3d54f3742abff0b41fde5b919e0f81ffb8d8512aad18593febe243f822c6",
+      "basicsr/models/archs/arch_util.py": "c9bab42a7432e0771c800f5581e3ddede5001db3e127c17194c2b0845a255a9d"
+    }
+  },
+  "nafnet_config": {
+    "repo": "https://github.com/megvii-research/NAFNet",
+    "repo_commit": "2b4af71ebe098a92a75910c233a3965a3e93ede4",
+    "arch_files": [
+      "basicsr/models/archs/NAFNet_arch.py",
+      "basicsr/models/archs/local_arch.py",
+      "basicsr/models/archs/arch_util.py"
+    ],
+    "test_option_file": "options/test/GoPro/NAFNet-width32.yml",
+    "network_g": {
+      "type": "NAFNetLocal",
+      "width": 32,
+      "enc_blk_nums": [
+        1,
+        1,
+        1,
+        28
+      ],
+      "middle_blk_num": 1,
+      "dec_blk_nums": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "checkpoint": "extension/third_party/weights/NAFNet-GoPro-width32.pth",
+    "checkpoint_source": "official README gdrive link, file id 1Fr2QadtDCEXg6iwWX8OzeZLbHOx2t5Bj",
+    "checkpoint_sha256": "19394e6155d12ef6371d1d57496f87f0ec88f92bdffa27c0792690722d5d1a5c",
+    "state_dict_key": "params",
+    "strict_load": true,
+    "no_retraining": true,
+    "training_cost": "unknown",
+    "input": "gray uint8 HxW -> float32 /255 -> replicate to 3 identical channels (R=G=B) -> 1x3xHxW",
+    "output": "official tensor2img: clamp[0,1] -> *255 -> round -> uint8 (RGB->BGR) -> cv2.COLOR_BGR2GRAY (same gray conversion as base preprocessing) -> uint8 HxW",
+    "padding": "inside NAFNet.check_image_size: zero pad right/bottom to a multiple of 16, output cropped to [:H,:W]",
+    "device": "cuda_if_available",
+    "numerics": {
+      "tf32": false,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false
+    }
+  },
+  "t_model_load_ms": 939.6790999999212,
+  "t_warmup_ms": 454.5927000000347,
+  "timing_scope": "t_total_ms = uint8 gray in memory -> tensor -> device -> forward -> host -> uint8 gray (torch.cuda.synchronize at both ends); excludes PNG I/O, model load and warm-up",
+  "elapsed_s": 61.1,
+  "checks": {
+    "repeat_same_device": [
+      {
+        "image_id": "cleantgt__i_gonnenberg__1-2",
+        "identical": true,
+        "max_abs_diff": 0
+      },
+      {
+        "image_id": "tgt__i_gonnenberg__1-2__gaussian_s1.5",
+        "identical": true,
+        "max_abs_diff": 0
+      },
+      {
+        "image_id": "tgt__i_gonnenberg__1-2__gaussian_s3.0",
+        "identical": true,
+        "max_abs_diff": 0
+      },
+      {
+        "image_id": "tgt__i_gonnenberg__1-2__disk_r3",
+        "identical": true,
+        "max_abs_diff": 0
+      },
+      {
+        "image_id": "tgt__i_gonnenberg__1-2__disk_r5",
+        "identical": true,
+        "max_abs_diff": 0
+      }
+    ],
+    "cpu_vs_device": [
+      {
+        "image_id": "cleantgt__i_gonnenberg__1-2",
+        "cpu_t_total_ms": 2300.9137000000237,
+        "max_abs_diff": 1,
+        "frac_pixels_diff": 0.001635551948051948,
+        "h": 385,
+        "w": 640
+      },
+      {
+        "image_id": "tgt__i_gonnenberg__1-2__gaussian_s1.5",
+        "cpu_t_total_ms": 2095.491000000038,
+        "max_abs_diff": 1,
+        "frac_pixels_diff": 4.0584415584415584e-06,
+        "h": 385,
+        "w": 640
+      },
+      {
+        "image_id": "tgt__i_gonnenberg__1-2__gaussian_s3.0",
+        "cpu_t_total_ms": 2114.2529999999624,
+        "max_abs_diff": 1,
+        "frac_pixels_diff": 8.116883116883117e-06,
+        "h": 385,
+        "w": 640
+      }
+    ]
+  },
+  "end": "2026-10-10T22:23:19"
+}

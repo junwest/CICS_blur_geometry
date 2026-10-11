@@ -1,0 +1,4 @@
+third_party/
+results/*/images/
+results/*/details/
+__pycache__/

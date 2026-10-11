@@ -1,0 +1,91 @@
+{
+  "run_id": "ext_mismatch_20261011-163426",
+  "keep_awake": true,
+  "n_rows": 240,
+  "elapsed_s": 79.9,
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "numpy": "2.4.6",
+    "opencv": "5.0.0",
+    "cv2_threads": 16,
+    "scipy": "1.17.1",
+    "scikit-image": "0.26.0",
+    "pandas": "3.0.6",
+    "base_code_hash": "b5fa4afb6d5dad33",
+    "ext_code_hash": "f42df172cac33e97",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+  },
+  "kernel_mismatch": {
+    "true_blur": "motion_l17_a0",
+    "balance": 0.005,
+    "supplied_kernels": {
+      "exact": {
+        "length": 17,
+        "angle_deg": 0
+      },
+      "len13": {
+        "length": 13,
+        "angle_deg": 0
+      },
+      "len21": {
+        "length": 21,
+        "angle_deg": 0
+      },
+      "ang05": {
+        "length": 17,
+        "angle_deg": 5
+      },
+      "ang15": {
+        "length": 17,
+        "angle_deg": 15
+      }
+    },
+    "rotated_kernel": "uniform line segment of the given length, pixel weight = segment length inside the pixel (dense sampling), symmetrised k=(k+rot180(k))/2, normalised; equals base motion_psf at 0 deg",
+    "pipeline": "full (detectAndCompute), clean reference",
+    "pairs": "all 24 test pairs",
+    "no_search": true
+  },
+  "kernels": {
+    "exact": {
+      "kernel_h": 17,
+      "kernel_w": 17,
+      "kernel_sum": 0.9999999999999999,
+      "kernel_centroid_dx": 0.0,
+      "kernel_centroid_dy": 0.0,
+      "kernel_max_abs_diff_vs_true": 0.0
+    },
+    "len13": {
+      "kernel_h": 13,
+      "kernel_w": 13,
+      "kernel_sum": 1.0,
+      "kernel_centroid_dx": 0.0,
+      "kernel_centroid_dy": 0.0
+    },
+    "len21": {
+      "kernel_h": 21,
+      "kernel_w": 21,
+      "kernel_sum": 0.9999999999999999,
+      "kernel_centroid_dx": 0.0,
+      "kernel_centroid_dy": 0.0
+    },
+    "ang05": {
+      "kernel_h": 17,
+      "kernel_w": 17,
+      "kernel_sum": 1.0,
+      "kernel_centroid_dx": -4.440892098500626e-16,
+      "kernel_centroid_dy": 0.0,
+      "kernel_max_abs_diff_vs_true": 0.059029411764705886
+    },
+    "ang15": {
+      "kernel_h": 17,
+      "kernel_w": 17,
+      "kernel_sum": 1.0,
+      "kernel_centroid_dx": 4.440892098500626e-16,
+      "kernel_centroid_dy": 1.1102230246251565e-16,
+      "kernel_max_abs_diff_vs_true": 0.06091176470588235
+    }
+  },
+  "timing_scope": "runtime_ms = Wiener (CPU, in-process) + detectAndCompute + match + homography",
+  "exact_vs_base_D_all_equal": true
+}

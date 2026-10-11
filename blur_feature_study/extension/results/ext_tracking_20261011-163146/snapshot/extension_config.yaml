@@ -1,0 +1,109 @@
+# Extension experiment configuration (PRE-REGISTERED; written 2026-10-10 before any extension run).
+# The base study configuration (config/experiment_config.yaml) and the validation-selected
+# parameters (config/selected_params_validation_20261010-003108.yaml) are READ-ONLY inputs.
+# Nothing here changes preprocessing, H conversion, valid region, matching or RANSAC.
+extension:
+  name: blur_feature_study_extension
+  date_written: "2026-10-10"
+  base_config: config/experiment_config.yaml
+  base_selected_params: config/selected_params_validation_20261010-003108.yaml
+  base_main_run: results/main/main_20261010-003501          # consistency reference (read-only)
+  split: test                                               # 24 pairs / 12 sequences, same as base main run
+  detectors: [ORB, SIFT]                                    # base "default" configs only (nfeatures=1500)
+  # Detector tuning (group B of the base study) is NOT extended to this experiment.
+
+methods:                                                    # processing applied to a blurred image
+  unsharp: {alpha: 1.0, sigma: 1.2, truncate: 4.0}          # base values; no kernel, no training data
+  wiener: {balance_from: base_selected_params, psf: exact_generation_kernel}   # Known-PSF condition
+  nafnet: {see: nafnet}                                     # learned prior, NOT given the kernel
+
+nafnet:
+  repo: https://github.com/megvii-research/NAFNet
+  repo_commit: 2b4af71ebe098a92a75910c233a3965a3e93ede4
+  arch_files: [basicsr/models/archs/NAFNet_arch.py, basicsr/models/archs/local_arch.py, basicsr/models/archs/arch_util.py]
+  test_option_file: options/test/GoPro/NAFNet-width32.yml   # network_g copied below verbatim
+  network_g: {type: NAFNetLocal, width: 32, enc_blk_nums: [1, 1, 1, 28], middle_blk_num: 1, dec_blk_nums: [1, 1, 1, 1]}
+  checkpoint: extension/third_party/weights/NAFNet-GoPro-width32.pth
+  checkpoint_source: "official README gdrive link, file id 1Fr2QadtDCEXg6iwWX8OzeZLbHOx2t5Bj"
+  checkpoint_sha256: 19394e6155d12ef6371d1d57496f87f0ec88f92bdffa27c0792690722d5d1a5c
+  state_dict_key: params
+  strict_load: true
+  no_retraining: true                                       # no fine-tuning, no model search
+  training_cost: unknown                                    # pre-training cost is not known / not measured here
+  input: "gray uint8 HxW -> float32 /255 -> replicate to 3 identical channels (R=G=B) -> 1x3xHxW"
+  output: "official tensor2img: clamp[0,1] -> *255 -> round -> uint8 (RGB->BGR) -> cv2.COLOR_BGR2GRAY (same gray conversion as base preprocessing) -> uint8 HxW"
+  padding: "inside NAFNet.check_image_size: zero pad right/bottom to a multiple of 16, output cropped to [:H,:W]"
+  device: cuda_if_available                                 # timing reported with the device; CPU subset timed for reference
+  numerics: {tf32: false, cudnn_deterministic: true, cudnn_benchmark: false}
+
+stage_decomposition:                                        # Exp1 (main)
+  reference: clean                                          # reference image fixed to Clean (detectAndCompute, as in base)
+  conditions:                                               # first letter = detection image, second = descriptor image (TARGET only)
+    BB: {detect: B, describe: B}                            # shared baseline, computed once per (pair, blur, detector)
+    BR: {detect: B, describe: R}
+    RB: {detect: R, describe: B}
+    RR: {detect: R, describe: R}
+  keypoint_identity: "class_id set to the detection index before compute(); kept ids and all attributes are checked after compute()"
+  consistency_check: "separate detect()+compute() BB/RR vs detectAndCompute on the same image (bitwise keypoints/descriptors) and vs base main run rows A/C/D"
+
+tracking:                                                   # diagnostic analysis (uses Clean and GT information)
+  reference_set: "Clean pipeline ratio-test matches with GT error <= 3 px (per pair, detector)"
+  link_radius_px: 3.0                                       # search window; displacements beyond it are NOT observed
+  location_dedup_decimals: 3                                # identical (x,y) keypoints (e.g. SIFT multi-orientation) = one location
+  link_status:
+    lost: "no condition location within link_radius of the clean location"
+    unique: "exactly one condition location within link_radius AND that location has exactly one clean location within link_radius"
+    ambiguous: "any other case with >= 1 candidate (reported separately, excluded from displacement statistics)"
+  chance_baseline: "same rule applied to clean locations shifted by (+-20,0) and (0,+-20) px (shifted points kept only inside the valid region)"
+  states: [not_redetected, redetected_not_correct, correct]
+  outside_set: "GT-correct matches whose reference keypoint is not in the reference set, split by whether the target keypoint links to any clean location"
+  fixed_landmark_h:
+    landmarks: "reference-set correspondences whose clean target location is UNIQUELY linked in both the B-detection and the R-detection of the same cell"
+    min_landmarks: 8
+    estimator: "cv2.findHomography(method=0) on all landmarks (least squares + LM refinement; identity and count fixed, no RANSAC)"
+    targets_compared: [clean_position, B_position, R_position]
+    label: "diagnostic (uses Clean + GT); not a matching result"
+  oracle_inlier_h:
+    rule: "cv2.findHomography(method=0) on all GT-correct (<=3 px) ratio-test matches of a condition; min 8"
+    label: "diagnostic (uses GT); not a matching result"
+
+spatial_distribution:
+  domain: "overlap = reference valid rectangle intersected with H_gt^-1(target valid rectangle) (convex polygon)"
+  hull_coverage: "area(convex hull of reference points) / area(overlap)"
+  cell_occupancy: "4x4 cells over the reference valid rectangle; a cell is eligible if >= 50% of its 10x10 sample points are in the overlap; occupancy = eligible cells with >= 1 point / eligible cells"
+  point_sets: [gt_correct_matches, ransac_inliers_gt_correct]
+
+both_blur:                                                  # Exp2 (representative conditions only)
+  kernel_configs:
+    same: {reference: motion_l17_a0, target: motion_l17_a0}
+    diff: {reference: motion_l17_a90, target: motion_l17_a0}
+  processing_configs: [none, reference_only, target_only, both]   # per method; 'none' shared by all methods
+  wiener_kernel: "each image restored with its own exact generation kernel, balance = base selected value for that blur id"
+  pipeline: full (detectAndCompute on each image)
+  pairs: all 24 test pairs
+  rationale: >
+    Motion length 17 px was chosen because it is the base condition with the largest single-sided blur
+    effect (choice made after seeing base Test results -> exploratory). 'diff' uses the orthogonal direction
+    at the same length, the most distinct kernel available among the base conditions.
+
+kernel_mismatch:                                            # Exp3 (Wiener only, dependence on the exact kernel)
+  true_blur: motion_l17_a0                                  # blurred target unchanged
+  balance: 0.005                                            # base selected value for motion_l17_a0, NOT re-tuned
+  supplied_kernels:
+    exact: {length: 17, angle_deg: 0}
+    len13: {length: 13, angle_deg: 0}                       # -4 px (-23.5%)
+    len21: {length: 21, angle_deg: 0}                       # +4 px (+23.5%)
+    ang05: {length: 17, angle_deg: 5}                       # end-point lateral offset 8.5*sin(5)  = 0.74 px
+    ang15: {length: 17, angle_deg: 15}                      # end-point lateral offset 8.5*sin(15) = 2.20 px
+  rotated_kernel: "uniform line segment of the given length, pixel weight = segment length inside the pixel (dense sampling), symmetrised k=(k+rot180(k))/2, normalised; equals base motion_psf at 0 deg"
+  pipeline: full (detectAndCompute), clean reference
+  pairs: all 24 test pairs
+  no_search: true                                           # no kernel / balance search for better performance
+
+statistics:
+  unit: "paired difference within (pair, blur, detector) cell"
+  pooled: "pair-level mean over blur conditions (n=24) then sequence cluster bootstrap 95% CI (12 clusters, 5000 resamples, seed 42) - analysis/scripts/common.py functions"
+  success: "all cells, failures kept; gained/lost cell counts"
+  continuous_h_error: "only cells where BOTH compared conditions have a valid H (labelled 'common-valid subset')"
+  sensitivity: "exclude GT-flagged pair (v_cartooncity__1-5) and Clean-fail pairs; reported, never used to replace the main result"
+  exploratory_label: "all hypotheses formed after seeing base Test results are exploratory, not confirmatory"

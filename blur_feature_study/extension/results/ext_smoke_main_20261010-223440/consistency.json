@@ -1,0 +1,57 @@
+{
+  "base_run": "main_20261010-003501",
+  "run": "ext_smoke_main_20261010-223440",
+  "comparisons": {
+    "CLEAN_clean_vs_CLEAN": {
+      "n_new": 2,
+      "n_base": 2,
+      "unmatched": 0,
+      "mismatch": {},
+      "all_equal": true
+    },
+    "BB_none_vs_A": {
+      "n_new": 16,
+      "n_base": 16,
+      "unmatched": 0,
+      "mismatch": {},
+      "all_equal": true
+    },
+    "RR_unsharp_vs_C": {
+      "n_new": 16,
+      "n_base": 16,
+      "unmatched": 0,
+      "mismatch": {},
+      "all_equal": true
+    },
+    "RR_wiener_vs_D": {
+      "n_new": 16,
+      "n_base": 16,
+      "unmatched": 0,
+      "mismatch": {},
+      "all_equal": true
+    }
+  },
+  "detectAndCompute_bitwise": {
+    "n_checked": 66,
+    "kp_equal": 66,
+    "desc_equal": 66,
+    "by_stage": {
+      "BB/ORB": "8/8 kp, 8/8 desc",
+      "BB/SIFT": "8/8 kp, 8/8 desc",
+      "CLEAN/ORB": "1/1 kp, 1/1 desc",
+      "CLEAN/SIFT": "1/1 kp, 1/1 desc",
+      "RR/ORB": "24/24 kp, 24/24 desc",
+      "RR/SIFT": "24/24 kp, 24/24 desc"
+    }
+  },
+  "compute_bookkeeping": {
+    "rows": 160,
+    "rows_with_removed_keypoints": 0,
+    "total_removed": 0,
+    "rows_reordered": 0,
+    "rows_attrs_changed": 0,
+    "sift_rows_sentinel_effective": 6,
+    "sift_rows": 80
+  },
+  "all_consistent": true
+}

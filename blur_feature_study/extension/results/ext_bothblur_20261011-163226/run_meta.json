@@ -1,0 +1,65 @@
+{
+  "run_id": "ext_bothblur_20261011-163226",
+  "keep_awake": true,
+  "nafnet_run": "ext_nafnet_20261010-222216",
+  "n_rows": 960,
+  "elapsed_s": 119.4,
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "numpy": "2.4.6",
+    "opencv": "5.0.0",
+    "cv2_threads": 16,
+    "scipy": "1.17.1",
+    "scikit-image": "0.26.0",
+    "pandas": "3.0.6",
+    "base_code_hash": "b5fa4afb6d5dad33",
+    "ext_code_hash": "f42df172cac33e97",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+  },
+  "both_blur": {
+    "kernel_configs": {
+      "same": {
+        "reference": "motion_l17_a0",
+        "target": "motion_l17_a0"
+      },
+      "diff": {
+        "reference": "motion_l17_a90",
+        "target": "motion_l17_a0"
+      }
+    },
+    "processing_configs": [
+      "none",
+      "reference_only",
+      "target_only",
+      "both"
+    ],
+    "wiener_kernel": "each image restored with its own exact generation kernel, balance = base selected value for that blur id",
+    "pipeline": "full (detectAndCompute on each image)",
+    "pairs": "all 24 test pairs",
+    "rationale": "Motion length 17 px was chosen because it is the base condition with the largest single-sided blur effect (choice made after seeing base Test results -> exploratory). 'diff' uses the orthogonal direction at the same length, the most distinct kernel available among the base conditions.\n"
+  },
+  "timing_scope": "runtime_ms = processing of both images (Unsharp/Wiener CPU in-process; NAFNet GPU t_total_ms from the manifest) + detectAndCompute on both images + match + homography. Feature times are measured at first computation (images shared between rows are computed once).",
+  "counts": {
+    "diff/nafnet/both": 48,
+    "diff/nafnet/ref_only": 48,
+    "diff/nafnet/tgt_only": 48,
+    "diff/none/none": 48,
+    "diff/unsharp/both": 48,
+    "diff/unsharp/ref_only": 48,
+    "diff/unsharp/tgt_only": 48,
+    "diff/wiener/both": 48,
+    "diff/wiener/ref_only": 48,
+    "diff/wiener/tgt_only": 48,
+    "same/nafnet/both": 48,
+    "same/nafnet/ref_only": 48,
+    "same/nafnet/tgt_only": 48,
+    "same/none/none": 48,
+    "same/unsharp/both": 48,
+    "same/unsharp/ref_only": 48,
+    "same/unsharp/tgt_only": 48,
+    "same/wiener/both": 48,
+    "same/wiener/ref_only": 48,
+    "same/wiener/tgt_only": 48
+  }
+}
